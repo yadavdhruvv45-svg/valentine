@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Sujata ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  font-family:Segoe UI, sans-serif;
+  color:#fff;
+  overflow:hidden;
+  text-align:center;
+}
+
+/* Floating hearts */
+.heart{
+  position:fixed;
+  width:18px;
+  height:18px;
+  background:red;
+  transform:rotate(45deg);
+  animation:float 7s linear infinite;
+  opacity:.6;
+  pointer-events:none;
+}
+.heart:before,.heart:after{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:18px;
+  background:red;
+  border-radius:50%;
+}
+.heart:before{top:-9px;left:0}
+.heart:after{left:-9px;top:0}
+
+@keyframes float{
+  from{transform:translateY(100vh) rotate(45deg)}
+  to{transform:translateY(-120vh) rotate(45deg)}
+}
+
+.card{
+  background:rgba(255,255,255,.25);
+  padding:30px;
+  border-radius:25px;
+  width:360px;
+  box-shadow:0 20px 40px rgba(0,0,0,.3);
+  z-index:2;
+}
+
+.hidden{display:none}
+
+button{
+  border:none;
+  padding:10px 22px;
+  border-radius:22px;
+  font-weight:bold;
+  cursor:pointer;
+  margin:8px;
+}
+.yes{background:#fff;color:#ff4f7b}
+.no{
+  background:rgba(255,255,255,.4);
+  color:#fff;
+  position:absolute;
+}
+
+.final{
+  font-weight:bold;
+  line-height:1.6;
+  margin-top:12px;
+  min-height:200px;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+/* Hearts background */
+for(let i=0;i<25;i++){
+  const h=document.createElement("div");
+  h.className="heart";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(Math.random()*4+5)+"s";
+  document.body.appendChild(h);
+}
+</script>
+
+<div class="card">
+  <h2>A Letter for You 💌</h2>
+  <p>Someone wrote this just for you, Sujata…</p>
+
+  <button id="openBtn" onclick="openLove()">Open 💕</button>
+
+  <div id="proposal" class="hidden">
+    <p><b>Sujata, will you be my Valentine? ❤️</b></p>
+    <button class="yes" onclick="sayYes()">YES 💖</button>
+    <button class="no" onmouseover="moveNo()">NO 😜</button>
+  </div>
+
+  <div id="letter" class="hidden final"></div>
+</div>
+
+<!-- 🎵 LOCAL SONG -->
+<audio id="loveSong" preload="auto" playsinline>
+  <source src="perfect.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const letterText = `My dearest Sujata,
+
+From the moment you came into my life,
+everything started feeling more beautiful.
+
+Your smile feels like home,
+your presence brings peace,
+and my heart chose you without a second thought.
+
+So today, tomorrow, and always,
+I choose you. ❤️
+
+Happy Valentine’s Day, Sujata 💕
+— Yours forever, Dhruv`;
+
+function openLove(){
+  document.getElementById("openBtn").style.display="none";
+  document.getElementById("proposal").classList.remove("hidden");
+}
+
+function moveNo(){
+  const b=document.querySelector(".no");
+  b.style.transform =
+    `translate(${Math.random()*200-100}px,${Math.random()*200-100}px)`;
+}
+
+function typeLetter(){
+  let i=0;
+  const box=document.getElementById("letter");
+  box.innerHTML="";
+  (function t(){
+    if(i<letterText.length){
+      box.innerHTML += letterText[i]==="\n" ? "<br>" : letterText[i];
+      i++;
+      setTimeout(t,40);
+    }
+  })();
+}
+
+/* ✅ EDGE-SAFE AUDIO PLAY */
+function sayYes(){
+  document.getElementById("proposal").style.display="none";
+  document.getElementById("letter").classList.remove("hidden");
+
+  typeLetter();
+
+  const song = document.getElementById("loveSong");
+
+  song.pause();
+  song.currentTime = 0;
+
+  song.onloadedmetadata = () => {
+    song.currentTime = 30;  // start from 30 sec
+    song.volume = 1;
+    song.play();
+  };
+
+  song.load();
+}
+</script>
+
+</body>
+</html>

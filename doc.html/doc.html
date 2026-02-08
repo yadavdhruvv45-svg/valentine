@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Sujata ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  font-family:Segoe UI, sans-serif;
+  color:#fff;
+  overflow:hidden;
+  text-align:center;
+}
+
+/* Floating hearts */
+.bg-heart{
+  position:fixed;
+  width:14px;
+  height:14px;
+  background:red;
+  transform:rotate(45deg);
+  animation:float 8s linear infinite;
+  opacity:.5;
+}
+.bg-heart:before,.bg-heart:after{
+  content:"";
+  position:absolute;
+  width:14px;
+  height:14px;
+  background:red;
+  border-radius:50%;
+}
+.bg-heart:before{top:-7px;left:0}
+.bg-heart:after{left:-7px;top:0}
+
+@keyframes float{
+  from{transform:translateY(110vh) rotate(45deg)}
+  to{transform:translateY(-120vh) rotate(45deg)}
+}
+
+/* ---------- ENVELOPE ---------- */
+#envelopeScreen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:10;
+}
+
+.envelope{
+  width:280px;
+  height:180px;
+  background:#fff;
+  border-radius:10px;
+  position:relative;
+  cursor:pointer;
+  box-shadow:0 25px 45px rgba(0,0,0,.35);
+  animation:floatEnv 3s ease-in-out infinite;
+}
+
+@keyframes floatEnv{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+.flap{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#ffd1e6;
+  clip-path:polygon(0 0,50% 55%,100% 0);
+  transform-origin:top;
+  transition:transform 1s ease;
+}
+
+.envelope.open .flap{
+  transform:rotateX(180deg);
+}
+
+.env-heart{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) rotate(45deg);
+  width:34px;
+  height:34px;
+  background:#ff3b6f;
+  animation:pulse 1.2s infinite;
+}
+.env-heart:before,.env-heart:after{
+  content:"";
+  position:absolute;
+  width:34px;
+  height:34px;
+  background:#ff3b6f;
+  border-radius:50%;
+}
+.env-heart:before{top:-17px;left:0}
+.env-heart:after{left:-17px;top:0}
+
+@keyframes pulse{
+  0%,100%{transform:translate(-50%,-50%) rotate(45deg) scale(1)}
+  50%{transform:translate(-50%,-50%) rotate(45deg) scale(1.25)}
+}
+
+/* ---------- INTRO PAGE ---------- */
+#intro{
+  position:absolute;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  animation:slideUp 1.1s ease forwards;
+  z-index:9;
+}
+
+@keyframes slideUp{
+  from{transform:translateY(100%);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+
+.card{
+  background:rgba(255,255,255,.25);
+  padding:30px;
+  border-radius:25px;
+  width:360px;
+  box-shadow:0 20px 40px rgba(0,0,0,.3);
+}
+
+button{
+  border:none;
+  padding:10px 24px;
+  border-radius:22px;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:14px;
+}
+
+.hidden{display:none}
+.yes{background:#fff;color:#ff4f7b}
+.no{
+  background:rgba(255,255,255,.4);
+  color:#fff;
+  position:absolute;
+}
+
+.final{
+  font-weight:bold;
+  line-height:1.6;
+  margin-top:12px;
+  min-height:200px;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+for(let i=0;i<30;i++){
+  const h=document.createElement("div");
+  h.className="bg-heart";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(Math.random()*4+6)+"s";
+  document.body.appendChild(h);
+}
+</script>
+
+<!-- ENVELOPE -->
+<div id="envelopeScreen">
+  <div class="envelope" onclick="openEnvelope()">
+    <div class="flap"></div>
+    <div class="env-heart"></div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div id="intro">
+  <div class="card">
+    <h2>A letter for you cutiee 💕</h2>
+    <p>someone wrote only for you, my love ❤️</p>
+    <button onclick="openLove()">Open 💖</button>
+  </div>
+</div>
+
+<!-- MAIN CARD (SAME FLOW) -->
+<div class="card hidden" id="mainCard">
+  <h2>A Letter for You 💌</h2>
+  <p>Someone wrote this just for you, Sujata…</p>
+
+  <div id="proposal" class="hidden">
+    <p><b>Sujata, will you be my Valentine? ❤️</b></p>
+    <button class="yes" onclick="sayYes()">YES 💖</button>
+    <button class="no" onmouseover="moveNo()">NO 😜</button>
+  </div>
+
+  <div id="letter" class="hidden final"></div>
+</div>
+
+<audio id="loveSong" preload="auto">
+  <source src="perfect.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const letterText=`My dearest Sujata,
+
+From the moment you came into my life,
+everything started feeling more beautiful.
+
+Your smile feels like home,
+your presence brings peace,
+and my heart chose you without a second thought.
+
+So today, tomorrow, and always,
+I choose you. ❤️
+
+Happy Valentine’s Day, Sujata 💕
+— Yours forever, Dhruv`;
+
+function openEnvelope(){
+  const env=document.querySelector(".envelope");
+  env.classList.add("open");
+  setTimeout(()=>{
+    document.getElementById("envelopeScreen").style.display="none";
+    document.getElementById("intro").style.display="flex";
+  },900);
+}
+
+function openLove(){
+  document.getElementById("intro").style.display="none";
+  document.getElementById("mainCard").classList.remove("hidden");
+  document.getElementById("proposal").classList.remove("hidden");
+}
+
+function moveNo(){
+  const b=document.querySelector(".no");
+  b.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*200-100}px)`;
+}
+
+function typeLetter(){
+  let i=0,box=document.getElementById("letter");
+  box.innerHTML="";
+  (function t(){
+    if(i<letterText.length){
+      box.innerHTML+=letterText[i]==="\n"?"<br>":letterText[i];
+      i++;setTimeout(t,40);
+    }
+  })();
+}
+
+function sayYes(){
+  document.getElementById("proposal").style.display="none";
+  document.getElementById("letter").classList.remove("hidden");
+  typeLetter();
+  const song=document.getElementById("loveSong");
+  song.onloadedmetadata=()=>{song.currentTime=30;song.play();}
+  song.load();
+}
+</script>
+
+</body>
+</html>

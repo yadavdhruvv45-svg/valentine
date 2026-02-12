@@ -12,38 +12,161 @@ body{
   display:flex;
   justify-content:center;
   align-items:center;
-  background:linear-gradient(135deg,#ff758c,#ff7eb3);
+  background:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    url("sujata.jpg");
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
   font-family:Segoe UI, sans-serif;
   color:#fff;
   overflow:hidden;
   text-align:center;
 }
 
-/* Floating hearts */
-.heart{
-  position:fixed;
-  width:18px;
-  height:18px;
-  background:red;
-  transform:rotate(45deg);
-  animation:float 7s linear infinite;
-  opacity:.6;
-  pointer-events:none;
-}
-.heart:before,.heart:after{
+/* Optional soft blur */
+body::before{
   content:"";
   position:absolute;
-  width:18px;
-  height:18px;
+  inset:0;
+  backdrop-filter:blur(3px);
+  z-index:-1;
+}
+
+/* ========== BOUQUET SCREEN ========== */
+#bouquetScreen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:20;
+  animation:fadeIn 1.2s ease;
+}
+
+.bouquet{
+  font-size:120px;
+  animation:floatBouquet 3s ease-in-out infinite;
+}
+
+@keyframes floatBouquet{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-15px)}
+}
+
+.bouquet-btn{
+  margin-top:20px;
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  font-size:18px;
+  font-weight:bold;
+  cursor:pointer;
+  background:white;
+  color:#ff4f7b;
+  box-shadow:0 10px 25px rgba(0,0,0,.3);
+}
+
+/* Floating background hearts */
+.bg-heart{
+  position:fixed;
+  width:14px;
+  height:14px;
+  background:red;
+  transform:rotate(45deg);
+  animation:float 8s linear infinite;
+  opacity:.5;
+  pointer-events:none;
+}
+.bg-heart:before,.bg-heart:after{
+  content:"";
+  position:absolute;
+  width:14px;
+  height:14px;
   background:red;
   border-radius:50%;
 }
-.heart:before{top:-9px;left:0}
-.heart:after{left:-9px;top:0}
+.bg-heart:before{top:-7px;left:0}
+.bg-heart:after{left:-7px;top:0}
 
 @keyframes float{
-  from{transform:translateY(100vh) rotate(45deg)}
+  from{transform:translateY(110vh) rotate(45deg)}
   to{transform:translateY(-120vh) rotate(45deg)}
+}
+
+/* ========== ENVELOPE ========== */
+#envelopeScreen{
+  position:absolute;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:15;
+}
+
+.envelope{
+  width:330px;
+  height:210px;
+  background:#fff;
+  border-radius:12px;
+  position:relative;
+  cursor:pointer;
+  box-shadow:0 30px 55px rgba(0,0,0,.35);
+  perspective:800px;
+}
+
+.flap{
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:linear-gradient(#ffd6e9,#ffc0dc);
+  clip-path:polygon(0 0,50% 60%,100% 0);
+  transform-origin:top;
+  transition:transform 1.2s ease;
+}
+
+.envelope.open .flap{
+  transform:rotateX(170deg);
+}
+
+.env-heart{
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%) rotate(45deg);
+  width:38px; height:38px;
+  background:#ff3b6f;
+  animation:pulse 1.2s infinite;
+}
+.env-heart:before,.env-heart:after{
+  content:"";
+  position:absolute;
+  width:38px; height:38px;
+  background:#ff3b6f;
+  border-radius:50%;
+}
+.env-heart:before{top:-19px;left:0}
+.env-heart:after{left:-19px;top:0}
+
+@keyframes pulse{
+  0%,100%{transform:translate(-50%,-50%) rotate(45deg) scale(1)}
+  50%{transform:translate(-50%,-50%) rotate(45deg) scale(1.25)}
+}
+
+/* ========== INTRO PAGE ========== */
+#intro{
+  position:absolute;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  animation:slideUp 1s ease forwards;
+  z-index:10;
+}
+
+@keyframes slideUp{
+  from{transform:translateY(100%);opacity:0}
+  to{transform:translateY(0);opacity:1}
 }
 
 .card{
@@ -52,26 +175,25 @@ body{
   border-radius:25px;
   width:360px;
   box-shadow:0 20px 40px rgba(0,0,0,.3);
-  z-index:2;
 }
-
-.hidden{display:none}
 
 button{
   border:none;
-  padding:10px 22px;
+  padding:10px 24px;
   border-radius:22px;
   font-weight:bold;
   cursor:pointer;
-  margin:8px;
+  margin-top:14px;
 }
-.yes{background:#fff;color:#ff4f7b}
+
+.yes{background:#fff;color:#ff4f7b;margin-right:20px;}
 .no{
   background:rgba(255,255,255,.4);
   color:#fff;
   position:absolute;
 }
 
+.hidden{display:none}
 .final{
   font-weight:bold;
   line-height:1.6;
@@ -84,21 +206,42 @@ button{
 <body>
 
 <script>
-/* Hearts background */
-for(let i=0;i<25;i++){
+for(let i=0;i<30;i++){
   const h=document.createElement("div");
-  h.className="heart";
+  h.className="bg-heart";
   h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(Math.random()*4+5)+"s";
+  h.style.animationDuration=(Math.random()*4+6)+"s";
   document.body.appendChild(h);
 }
 </script>
 
-<div class="card">
+<!-- 🌹 BOUQUET SCREEN -->
+<div id="bouquetScreen">
+  <div class="bouquet">💐</div>
+  <button class="bouquet-btn" onclick="showEnvelope()">Click Here 💕</button>
+</div>
+
+<!-- ✉️ ENVELOPE -->
+<div id="envelopeScreen">
+  <div class="envelope" onclick="openEnvelope()">
+    <div class="flap"></div>
+    <div class="env-heart"></div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<div id="intro">
+  <div class="card">
+    <h2>A letter for you cutiee 💕</h2>
+    <p>someone wrote this only for you, my love ❤️</p>
+    <button onclick="openLove()">Open 💖</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="card hidden" id="mainCard">
   <h2>A Letter for You 💌</h2>
   <p>Someone wrote this just for you, Sujata…</p>
-
-  <button id="openBtn" onclick="openLove()">Open 💕</button>
 
   <div id="proposal" class="hidden">
     <p><b>Sujata, will you be my Valentine? ❤️</b></p>
@@ -109,13 +252,12 @@ for(let i=0;i<25;i++){
   <div id="letter" class="hidden final"></div>
 </div>
 
-<!-- 🎵 LOCAL SONG -->
-<audio id="loveSong" preload="auto" playsinline>
+<audio id="loveSong" preload="auto">
   <source src="perfect.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-const letterText = `My dearest Sujata,
+const letterText=`My dearest Sujata,
 
 From the moment you came into my life,
 everything started feeling more beautiful.
@@ -128,50 +270,65 @@ So today, tomorrow, and always,
 I choose you. ❤️
 
 Happy Valentine’s Day, Sujata 💕
-— Yours forever, Dhruv`;
+— Yours forever, Dhruv 💕 (yes, permanently)`;
+
+function showEnvelope(){
+  document.getElementById("bouquetScreen").style.display="none";
+  document.getElementById("envelopeScreen").style.display="flex";
+}
+
+function openEnvelope(){
+  document.querySelector(".envelope").classList.add("open");
+  setTimeout(()=>{
+    document.getElementById("envelopeScreen").style.display="none";
+    document.getElementById("intro").style.display="flex";
+  },1000);
+}
 
 function openLove(){
-  document.getElementById("openBtn").style.display="none";
+  document.getElementById("intro").style.display="none";
+  document.getElementById("mainCard").classList.remove("hidden");
   document.getElementById("proposal").classList.remove("hidden");
 }
 
 function moveNo(){
   const b=document.querySelector(".no");
-  b.style.transform =
-    `translate(${Math.random()*200-100}px,${Math.random()*200-100}px)`;
+  b.style.transform=`translate(${Math.random()*200-100}px,${Math.random()*200-100}px)`;
 }
 
 function typeLetter(){
-  let i=0;
-  const box=document.getElementById("letter");
+  let i=0,box=document.getElementById("letter");
   box.innerHTML="";
   (function t(){
     if(i<letterText.length){
-      box.innerHTML += letterText[i]==="\n" ? "<br>" : letterText[i];
-      i++;
-      setTimeout(t,40);
+      box.innerHTML+=letterText[i]==="\n"?"<br>":letterText[i];
+      i++;setTimeout(t,40);
     }
   })();
 }
 
-/* ✅ EDGE-SAFE AUDIO PLAY */
+function confetti(){
+  for(let i=0;i<80;i++){
+    const c=document.createElement("div");
+    c.style.position="fixed";
+    c.style.top="-10px";
+    c.style.left=Math.random()*100+"vw";
+    c.style.width="10px";
+    c.style.height="10px";
+    c.style.background=["#ff4f7b","#ffd166","#06d6a0","#4cc9f0"][Math.floor(Math.random()*4)];
+    c.style.animation="fall 3s linear";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),3000);
+  }
+}
+
 function sayYes(){
   document.getElementById("proposal").style.display="none";
   document.getElementById("letter").classList.remove("hidden");
-
   typeLetter();
-
-  const song = document.getElementById("loveSong");
-
-  song.pause();
-  song.currentTime = 0;
-
-  song.onloadedmetadata = () => {
-    song.currentTime = 30;  // start from 30 sec
-    song.volume = 1;
-    song.play();
-  };
-
+  confetti();
+  const song=document.getElementById("loveSong");
+  song.onloadedmetadata=()=>{song.currentTime=30;song.play();}
   song.load();
 }
 </script>

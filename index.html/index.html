@@ -13,24 +13,15 @@ body{
   justify-content:center;
   align-items:center;
   background:
-    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-    url("sujata.jpg");
+    linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+    url("sujata.jpeg");
   background-size:cover;
   background-position:center;
-  background-attachment:fixed;
+  background-repeat:no-repeat;
   font-family:Segoe UI, sans-serif;
   color:#fff;
   overflow:hidden;
   text-align:center;
-}
-
-/* Optional soft blur */
-body::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  backdrop-filter:blur(3px);
-  z-index:-1;
 }
 
 /* ========== BOUQUET SCREEN ========== */
@@ -171,6 +162,7 @@ body::before{
 
 .card{
   background:rgba(255,255,255,.25);
+  backdrop-filter:blur(10px);
   padding:30px;
   border-radius:25px;
   width:360px;

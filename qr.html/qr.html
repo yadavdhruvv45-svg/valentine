@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Valentine's Day Cute QR</title>
+<title>Valentine's Day QR</title>
 <style>
   body {
     display: flex;
@@ -11,52 +11,57 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #ffc1cc, #ff6b81);
+    background: #ffe6f0;
     font-family: 'Comic Sans MS', cursive, sans-serif;
-    color: #fff;
     text-align: center;
   }
 
-  h1 {
-    margin-bottom: 20px;
-    font-size: 2em;
-    text-shadow: 2px 2px #ff0000;
-  }
-
   #qrcode {
-    padding: 20px;
-    background: #fff0f5;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+    margin-bottom: 20px;
   }
 
-  .heart {
-    font-size: 1.2em;
-    animation: beat 1s infinite;
+  button {
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 10px;
+    border: none;
+    background: #ff66a3;
+    color: #fff;
+    cursor: pointer;
   }
 
-  @keyframes beat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
+  button:hover {
+    background: #ff3385;
   }
 </style>
 </head>
 <body>
 
-<h1>💖 Scan for a Surprise! 💖</h1>
+<h1>💖 Scan Me 💖</h1>
 <div id="qrcode"></div>
-<p class="heart">💕 Happy Valentine's Day! 💕</p>
+<button id="downloadBtn">💌 Download QR 💌</button>
 
-<!-- QR Code Library -->
+<!-- QRious library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <script>
+  // Generate QR code
   const qr = new QRious({
     element: document.getElementById('qrcode'),
     value: 'https://yadavdhruvv45-svg.github.io/valentine/index.html/',
     size: 250,
     background: 'transparent',
-    foreground: '#ff1493', // cute pink color
+    foreground: '#ff1493',
     level: 'H'
+  });
+
+  // Download QR
+  const downloadBtn = document.getElementById('downloadBtn');
+  downloadBtn.addEventListener('click', () => {
+    const dataURL = qr.toDataURL(); // get QR as PNG
+    const link = document.createElement('a');
+    link.href = dataURL;
+    link.download = 'valentine_qr.png';
+    link.click();
   });
 </script>
 </body>

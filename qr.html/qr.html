@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine's Day Cute QR</title>
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffc1cc, #ff6b81);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #fff;
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    text-shadow: 2px 2px #ff0000;
+  }
+
+  #qrcode {
+    padding: 20px;
+    background: #fff0f5;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+  }
+
+  .heart {
+    font-size: 1.2em;
+    animation: beat 1s infinite;
+  }
+
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+</style>
+</head>
+<body>
+
+<h1>💖 Scan for a Surprise! 💖</h1>
+<div id="qrcode"></div>
+<p class="heart">💕 Happy Valentine's Day! 💕</p>
+
+<!-- QR Code Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script>
+  const qr = new QRious({
+    element: document.getElementById('qrcode'),
+    value: 'https://yadavdhruvv45-svg.github.io/valentine/index.html/',
+    size: 250,
+    background: 'transparent',
+    foreground: '#ff1493', // cute pink color
+    level: 'H'
+  });
+</script>
+</body>
+</html>
